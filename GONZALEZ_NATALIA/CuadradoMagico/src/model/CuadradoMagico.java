@@ -23,7 +23,7 @@ public class CuadradoMagico {
 		
 		try {
 			int sSize = Integer.parseInt(size);
-			if(sSize == 1 || sSize == 2 || sSize == 0 || (double)sSize/2 == sSize/2 ) {
+			if(sSize <= 2 || (double)sSize/2 == sSize/2 ) {
 				throw new IncorrectInformation("El tamaño no es posible");
 			}else {
 				this.size = new int[sSize][sSize];
