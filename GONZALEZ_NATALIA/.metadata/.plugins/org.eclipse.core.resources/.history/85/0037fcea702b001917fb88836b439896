@@ -1,0 +1,20 @@
+package model;
+
+public class CuadradoMagico {
+	
+	private int[][] size;
+	private String start;
+	private String orientation;
+	
+	public final static String NE = "NE";
+	public final static String SE = "SE";
+	public final static String NO = "NO";
+	public final static String SO = "SO";
+	
+	public CuadradoMagico(int size, String start, String orientation) {
+		this.size = new int[size][size];
+		this.start = start;
+		this.orientation = orientation;
+	}
+
+}

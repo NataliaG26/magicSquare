@@ -1,0 +1,69 @@
+package controller;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import model.CuadradoMagico;
+
+public class Controller {
+	
+	@FXML
+    private ImageView imageSize;
+
+    @FXML
+    private ImageView imageStart;
+
+    @FXML
+    private ImageView imageOrient;
+
+    @FXML
+    private TextField txtFSize;
+
+    @FXML
+    private TextField txtFStart;
+
+    @FXML
+    private TextField txtFOrientation;
+
+    @FXML
+    private Button buttonOk;
+
+    @FXML
+    private GridPane gridPaneMatrix;
+    
+    private CuadradoMagico cuadro;
+
+    @FXML
+    void okInformation(ActionEvent event) {
+    	
+    	int size = Integer.parseInt(txtFSize.getText());
+    	char start = txtFStart.getText().charAt(0);
+    	String orientation = txtFOrientation.getText();
+    	cuadro = new CuadradoMagico(size, start, orientation);	
+    	gridPaneMatrix.setAlignment(Pos.CENTER);
+		gridPaneMatrix.setPadding(new Insets(20,20,20,20));
+    	gridPaneMatrix.setHgap(5);
+    	gridPaneMatrix.setVgap(5);
+    	int[][] sln = cuadro.cuadrado();
+    	
+    	for(int i = 0; i < size; i++) {
+    		for(int j = 0; j < size; j++) {
+    			Label label = new Label(sln[i][j]+"");
+    			GridPane.setConstraints(label, j+1, i+1);
+  				gridPaneMatrix.getChildren().setAll(label);
+    			
+    		}
+    	  }
+    	
+    }
+    
+
+}

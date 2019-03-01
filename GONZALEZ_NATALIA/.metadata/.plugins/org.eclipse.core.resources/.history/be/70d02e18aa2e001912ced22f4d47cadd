@@ -1,0 +1,112 @@
+package model;
+
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+
+public class CuadradoMagico {
+	
+	private int[][] size;
+	private  ComboBox<Character> start;
+	private ComboBox<String> orientation;
+	private int magicNumber;
+	
+	public final static String NE = "NE";
+	public final static String SE = "SE";
+	public final static String NO = "NO";
+	public final static String SO = "SO";
+	
+	public final static char A = 'a';
+	public final static char B = 'b';
+	public final static char C = 'c';
+	public final static char D = 'd';
+	
+	public CuadradoMagico(int size, ComboBox<Character> startBox, ComboBox<String> orientationBox) {
+		this.size = new int[size][size];
+		this.start = startBox;
+		this.orientation = orientationBox;
+		this.magicNumber = magicNumber(size);
+	}
+	
+	public int[][] cuadrado(){
+		
+		int n = 0;
+		int m = 0;
+		int r = 0;
+		if (orientation.equals(NE)) {
+			n = -1;
+			m = 1;
+			r = 1;
+		}else if(orientation.equals(NO)) {
+			n = -1;
+			m = -1;
+			r = 1;
+		}else if(orientation.equals(SE)) {
+			n = 1;
+			m = 1;
+			r = -1;
+		}else {
+			n = 1;
+			m = -1;
+			r = -1;
+		}
+		
+		int i = 0;
+		int j = 0;
+		if(start.equals(A)) {
+			i = 0;
+			j = size.length/2;
+		}else if(start.equals(B)) {
+			i = size.length/2;
+			j = 0;
+		}else if(start.equals(C)) {
+			i = size.length/2;
+			j = size.length-1;
+		}else {
+			i = size.length-1;
+			j = size.length/2;
+		}
+		
+		size[i][j] = 1;
+		int s = size.length*size.length;
+		for(int num = 2; num <= s; num++) {
+			int a = n+i;
+			int b = m+j;
+			if(a < 0) {
+				a = size.length -1;
+			}if(b > size.length -1) {
+				b = 0;
+			}if(a > size.length -1) {
+				a = 0;
+			}if(b < 0) {
+				b = size.length -1;
+			}
+			
+			if(size[a][b] == 0) {
+				size [a][b] = num;
+				i = a;
+				j = b;
+			}else {
+				i +=r;
+				if(i<0) {
+					i = size.length -1;
+				}else if(i>size.length-1) {
+					i = 0;
+				}
+				size[i][j] = num;
+			}
+		}	
+		return size;
+	}
+	
+	
+	
+	private int magicNumber(int size) {
+		return (size*((size*size)+1))/2;
+	}
+	
+	public int getMagicNumber() {
+		return magicNumber;
+	}
+	
+
+}

@@ -1,0 +1,82 @@
+package controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import model.CuadradoMagico;
+import javafx.scene.control.ComboBox;
+
+public class Controller {
+	
+	ObservableList<String> startList = FXCollections.observableArrayList("a", "b", "c", "d");
+	ObservableList<String> orientationtList = FXCollections.observableArrayList("NE", "NO", "SE", "SO");
+	
+	
+	@FXML
+    private ImageView imageSize;
+
+    @FXML
+    private ImageView imageStart;
+
+    @FXML
+    private ImageView imageOrient;
+
+    @FXML
+    private TextField txtFSize;
+
+    @FXML
+    private ComboBox<?> startBox;
+
+    @FXML
+    private ComboBox<?> orientationBox;
+
+    @FXML
+    private Button buttonOk;
+
+    @FXML
+    private GridPane gridPaneMatrix;
+    
+    private CuadradoMagico cuadro;
+
+    @FXML
+    void okInformation(ActionEvent event) {
+    	
+    	gridPaneMatrix.getChildren().setAll();
+    	int size = Integer.parseInt(txtFSize.getText());
+    	char start = txtFStart.getText().charAt(0);
+    	String orientation = txtFOrientation.getText();
+    	
+    	if ((double)size/2.0 == (int)size/2) {
+    		
+    	}
+    	if(start != 'a' || start != 'b' || start != 'c' || start != 'd' ){
+    	}
+    	if(orientation != "NE" || orientation != "N0" || orientation != "NE" || orientation != "NE" )
+    	cuadro = new CuadradoMagico(size, start, orientation);	
+    	gridPaneMatrix.setAlignment(Pos.CENTER);
+    	gridPaneMatrix.setHgap(5);
+    	gridPaneMatrix.setVgap(5);
+    	int[][] sln = cuadro.cuadrado();
+    	
+    	for(int i = 0; i < size; i++) {
+    		for(int j = 0; j < size; j++) {
+    			gridPaneMatrix.getColumnConstraints().add(new ColumnConstraints(30));
+    			Label label = new Label(sln[i][j]+"");
+    			GridPane.setConstraints(label, j+1, i+1);
+  				gridPaneMatrix.getChildren().addAll(label);
+    			
+    		}
+    	  }
+    	
+    	}
+    	
+    }
+    
